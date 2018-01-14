@@ -20,5 +20,7 @@ DELETE_OUTPUT_DIRECTORY = True
 
 # Following items are often useful when publishing
 
+THEME = '/home/chicken/pelican-themes/html5-dopetrope'
+
 #DISQUS_SITENAME = ""
 #GOOGLE_ANALYTICS = ""
