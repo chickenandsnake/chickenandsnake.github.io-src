@@ -1,11 +1,11 @@
 Title: Why I rarely install software on my Ubuntu laptop
 Date: 2018-01-06 10:20
-Modified: 2018-01-06 10:20
+Modified: 2018-01-06 23:20
 Category: system
 Tags: Docker, Ubuntu
 Slug: dont-install-software-on-ubuntu
 Authors: Chicken
-Summary: Installing software on host system is not a good idea
+Summary: Why I gave up the idea of installing (some) software on my laptop.
 Status: published
 
 
