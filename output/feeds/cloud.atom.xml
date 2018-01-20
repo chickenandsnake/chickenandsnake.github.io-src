@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>ChickenAndSnake</title><link href="http://chickenandsnake.github.io/" rel="alternate"></link><link href="http://chickenandsnake.github.io/feeds/cloud.atom.xml" rel="self"></link><id>http://chickenandsnake.github.io/</id><updated>2018-01-20T20:20:00+01:00</updated><entry><title>Linode cluster for less than 1 USD</title><link href="http://chickenandsnake.github.io/linode-cluster-for-less-than-1USD.html" rel="alternate"></link><published>2018-01-20T20:20:00+01:00</published><author><name>Chicken</name></author><id>tag:chickenandsnake.github.io,2018-01-20:linode-cluster-for-less-than-1USD.html</id><summary type="html">&lt;p&gt;I have been playing with Linode recently. I like it a lot because it's reasonably priced and it simply does the job. In this short tutorial, I will show you how to create a 10 CPU cluster for less than one 1 USD.
-Code for this post will be available &lt;a href="https://chickenandsnake.github.io/linode-cluster-for-less-than-1USD.html"&gt;here&lt;/a&gt;.
-here, Python 3.6 was used in this tutorial.&lt;/p&gt;
+Code for this post will be available &lt;a href="https://chickenandsnake.github.io/linode-cluster-for-less-than-1USD.html"&gt;here&lt;/a&gt;. Python 3.6 was used in this tutorial.&lt;/p&gt;
 &lt;p&gt;First things first, you have to make an account at Linode. Once you are logged in, you'll need to generate the API key.
 That will allow us to use Linode's API and create/update and destroy nodes at will.&lt;/p&gt;
 &lt;p&gt;You'll need to install python library for Linode's API. Official repo can be found here: https://github.com/linode/python-linode-api
