@@ -8,7 +8,7 @@ Summary: In this post I will show you how to create a cheap 10 CPU cluster for l
 Status: published
 
 I have been playing with Linode recently. I like it a lot because it's reasonably priced and it simply does the job. In this short tutorial, I will show you how to create a 10 CPU cluster for less than one 1 USD.
-Code for this post will be available [here](https://chickenandsnake.github.io/linode-cluster-for-less-than-1USD.html). Python 3.6 was used in this tutorial.
+Code for this post will be available [here](https://github.com/chickenandsnake/LinodeClusterFor1USD). Python 3.6 was used in this tutorial.
 
 
 First things first, you have to make an account at Linode. Once you are logged in, you'll need to generate the API key.
