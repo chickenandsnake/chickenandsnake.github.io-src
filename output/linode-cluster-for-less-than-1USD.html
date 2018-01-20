@@ -1,0 +1,241 @@
+
+<!DOCTYPE HTML>
+<!--
+	Dopetrope 2.0 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+			<title>ChickenAndSnake</title>
+			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+			<meta charset="utf-8" />
+			<link href="http://chickenandsnake.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="ChickenAndSnake Full Atom Feed" />
+			<link href="http://chickenandsnake.github.io/feeds/cloud.atom.xml" type="application/atom+xml" rel="alternate" title="ChickenAndSnake Categories Atom Feed" />
+			<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic" rel="stylesheet" />
+				<link rel="stylesheet" href="/theme/css/pygment.css" />
+			<noscript>
+				<link rel="stylesheet" href="/theme/css/skel-noscript.css" />
+				<link rel="stylesheet" href="/theme/css/style.css" />
+				<link rel="stylesheet" href="/theme/css/style-desktop.css" />
+			</noscript>
+	</head>
+	<body class="no-sidebar">
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Header -->
+								<section id="header">
+									
+									<!-- Logo -->
+									<h1><a href="http://chickenandsnake.github.io/">ChickenAndSnake</a></h1>
+									
+									<!-- Nav -->
+										<nav id="nav">
+											<ul>
+											</ul>
+										</nav>
+
+								</section>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<!-- Main Wrapper -->
+			<div id="main-wrapper">
+				<div class="container">
+<div class="row">
+	<div class="12u">
+			<section>
+				<div>
+					<div class="row">
+						<div class="12u skel-cell-mainContent">
+							<!-- Content -->
+								<article class="box is-post">
+									<div class="post-infos">
+										<ul class="tags">
+											<li><a class="button" href="category/cloud.html">Cloud</a></li>
+												<li><a class="button button-alt" href="tag/cloud.html">Cloud</a></li>
+
+												<li><a class="button button-alt" href="tag/linode.html">Linode</a></li>
+
+												<li><a class="button button-alt" href="tag/api.html">Api</a></li>
+
+										</ul>
+									</div>
+
+									<div class="pennant pennant-alt date">2018-01-20</div>
+									<h2>Linode cluster for less than 1 USD</h2>
+									<p>I have been playing with Linode recently. I like it a lot because it's reasonably priced and it simply does the job. In this short tutorial, I will show you how to create a 10 CPU cluster for less than one 1 USD.
+Code for this post will be available <a href="https://chickenandsnake.github.io/linode-cluster-for-less-than-1USD.html">here</a>.
+here, Python 3.6 was used in this tutorial.</p>
+<p>First things first, you have to make an account at Linode. Once you are logged in, you'll need to generate the API key.
+That will allow us to use Linode's API and create/update and destroy nodes at will.</p>
+<p>You'll need to install python library for Linode's API. Official repo can be found here: https://github.com/linode/python-linode-api
+You should be able to easily reproduce this project using virtual environment, or anaconda environments using requirements file in this repo.</p>
+<p>First, you should put your API key in the settings.py file. Linode allows you to generate API keys which are valid for only some period of time, good security practice.</p>
+<p>Your settings.py should look like this:</p>
+<div class="highlight"><pre><span class="c"># settings.py</span>
+
+<span class="n">API_KEY</span> <span class="o">=</span><span class="s">&#39;Your API-KEY goes here&#39;</span>
+</pre></div>
+
+
+<p>Next, we'll create a specification of our Linode instances. Let's explore what Linode has to offer. Run Python shell and type:</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">linode</span>
+<span class="kn">from</span> <span class="nn">settings</span> <span class="kn">import</span> <span class="n">API_KEY</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">linode</span><span class="o">.</span><span class="n">LinodeClient</span><span class="p">(</span><span class="n">API_KEY</span><span class="p">)</span>
+</pre></div>
+
+
+<p>At this point, you have a connection with Linode API. Let's see which machine can we provision using Linode API.</p>
+<div class="highlight"><pre><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">linode</span><span class="o">.</span><span class="n">get_types</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Result should be something like this:</p>
+<div class="highlight"><pre><span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">2</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">4</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">6</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">12</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">16</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">standard</span><span class="o">-</span><span class="mi">20</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">nanode</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">2</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">4</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">Type</span><span class="p">:</span> <span class="n">g5</span><span class="o">-</span><span class="n">highmem</span><span class="o">-</span><span class="mi">16</span>
+</pre></div>
+
+
+<p>Your request will retrun an iterable of <code>Type</code> objects and provides basic information about a linode. <code>Type</code> class has various properties like label, id, memory and price, vcpus, disks. and so on . To get more information about each linode we could run:</p>
+<div class="highlight"><pre><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">linode</span><span class="o">.</span><span class="n">get_types</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;Id: {item.id} Memory: {item.memory} CPU: {item.vcpus} Disk: {item.disk} Price hourly: {item.price.hourly}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Feature that makes Linode API more user-friendly is filtering. Let's assume for a second that you want 60 nodes, one CPU each and you think that 1 GB of RAM will be enough.</p>
+<p>To get all the node types that fulfill this criteria you can run something like this:</p>
+<div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">client</span><span class="o">.</span><span class="n">linode</span><span class="o">.</span><span class="n">get_types</span><span class="p">(</span><span class="n">Type</span><span class="o">.</span><span class="n">memory</span> <span class="o">==</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">Type</span><span class="o">.</span><span class="n">vcpus</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As you can see only one <code>Type</code> fulfils this criterion. It's worth noting that Linode API accepts id as arguments for inodes creation.</p>
+<p>Using filters allows us to create a function that will provide the desired specification for us:</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">create_linode</span><span class="p">(</span><span class="n">api_key</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>  <span class="n">ram</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span> <span class="n">cpus</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">client</span> <span class="o">=</span> <span class="n">linode</span><span class="o">.</span><span class="n">LinodeClient</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+    <span class="n">im_id</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get_images</span><span class="p">(</span><span class="n">linode</span><span class="o">.</span><span class="n">Image</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="n">image</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">im_id</span><span class="p">)</span>
+    <span class="n">nodename</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">linode</span><span class="o">.</span><span class="n">get_types</span><span class="p">(</span><span class="n">Type</span><span class="o">.</span><span class="n">memory</span> <span class="o">==</span> <span class="n">ram</span><span class="p">,</span> <span class="n">Type</span><span class="o">.</span><span class="n">vcpu</span> <span class="o">==</span> <span class="n">cpus</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">region</span> <span class="o">=</span> <span class="n">Region</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="s">&#39;eu-west-1a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">id</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">linode</span><span class="o">.</span><span class="n">Type</span><span class="p">(</span><span class="n">client</span><span class="p">,</span> <span class="n">nodename</span><span class="p">)</span>
+    <span class="n">l</span><span class="p">,</span> <span class="n">pw</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">linode</span><span class="o">.</span><span class="n">create_instance</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">region</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">l</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">l</span><span class="o">.</span><span class="n">ipv4</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">passwd</span><span class="o">=</span><span class="n">pw</span><span class="p">)</span>
+</pre></div>
+
+
+<p>One limitation of the above code is that if more than one Linode type fulfils your criteria, only the first one will be used.
+As long as you don't supply a password to <code>create_instance()</code> method, Linode will create a password for you and return it.</p>
+<div class="highlight"><pre><span class="n">node_details</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+    <span class="n">node_details</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_linode</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">API_KEY</span><span class="p">,</span> <span class="n">image</span><span class="o">=</span><span class="s">&#39;Ubuntu 16.04 LTS&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;Node{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">ram</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">cpus</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">node_details</span><span class="p">)</span>
+</pre></div>
+
+
+<p>If we run the code above you will get 10 nodes, ready to do whatever task you have on your mind. Running this cluster for one hour will cost you 0.15 USD, which I think is very good value for money. 1 USD will buy you 6 hours of 10 CPUs. Not bad, huh?
+You have seen how to quickly provision custom-specification nodes in the cloud without a massive bill. In the next post, we'll try to use our mini-cluster to do something meaningful.</p>
+								</article>
+						</div>
+					</div>
+				</div>
+			</section>
+	</div>
+</div>
+
+				</div>
+			</div>
+
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+				<!-- Footer -->
+					<section id="footer" class="container">
+						<div class="row">
+							<div class="8u">
+								<section>
+									<header>
+										<h2>Latest articles</h2>
+									</header>
+									<ul class="dates">
+										<li>
+											<span class="date">Jan <strong>20</strong></span>
+											<h3><a href="linode-cluster-for-less-than-1USD.html">Linode cluster for less than 1 USD</a></h3>
+											<p><p>In this post I will show you how to create a cheap 10 CPU cluster for less than 1 USD.</p></p>
+										</li>
+										<li>
+											<span class="date">Jan <strong>06</strong></span>
+											<h3><a href="dont-install-software-on-ubuntu.html">Why I rarely install software on my Ubuntu laptop</a></h3>
+											<p><p>Why I gave up the idea of installing (some) software on my laptop.</p></p>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+						<div class="row">
+							<div class="4u">
+								<section>
+									<header>
+										<h2>Blogroll</h2>
+									</header>
+									<ul class="divided">
+											<li><a href="http://getpelican.com/">Pelican</a></li>
+											<li><a href="http://python.org/">Python.org</a></li>
+											<li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u">
+								<section>
+									<header>
+										<h2>Categories</h2>
+									</header>
+									<ul class="divided">
+											<li><a href="http://chickenandsnake.github.io/category/cloud.html">cloud</a></li>
+											<li><a href="http://chickenandsnake.github.io/category/system.html">system</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="4u">
+							
+								<section>
+									<header>
+										<h2>Contact</h2>
+									</header>
+									<ul class="social">
+									</ul>
+								</section>
+							</div>
+						</div>
+					</section>
+			</div>
+		<script src="/theme/js/jquery.min.js"></script>
+		<script src="/theme/js/jquery.dropotron.js"></script>
+		<script src="/theme/js/config.js"></script>
+		<script src="/theme/js/skel.min.js"></script>
+		<script src="/theme/js/skel-panels.min.js"></script>
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="/theme/css/ie8.css" /><![endif]-->
+	</body>
+</html>
